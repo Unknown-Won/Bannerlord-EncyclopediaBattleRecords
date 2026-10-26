@@ -1,6 +1,6 @@
 # Encyclopedia Battle Records
 
-Tracks a battle record for every troop type and hero in the campaign. It covers everything Lesser Scholar's Kill Counter showed, so that mod isn't needed alongside it.
+Tracks a battle record for every troop type and hero in the campaign. It covers everything [Kill Counter](https://www.nexusmods.com/mountandblade2bannerlord/mods/3793) showed, so that mod isn't needed alongside it.
 
 ## Troop page
 
@@ -34,6 +34,10 @@ Every name is the same in the Sort By lists and the Battle Record sections. A tr
 - A death is a troop that died. Wounded and routed troops are defeats, not deaths. A retreat order is not a rout.
 - A troop never fielded shows "-" and stays at the bottom of the list in either sort order.
 - Each save keeps its own record, starting when the mod is added. The mod saves only string-to-number tables, so it can be removed from a save at any time.
+
+## Credits
+
+Based on ideas from LesserScholar's [Kill Counter](https://www.nexusmods.com/mountandblade2bannerlord/mods/3793) ([source](https://github.com/LesserScholar/KillCounters)): per-troop kill counts, kills by target, and the encyclopedia sort and stats sections. This mod expands on them.
 
 Requires Harmony and UIExtenderEx. Built against Bannerlord v1.4.8.
 

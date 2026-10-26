@@ -93,3 +93,6 @@ ipch/
 
 # Machine-specific build paths
 EncyclopediaBattleRecords.local.props
+
+# Nexus page draft (not build output)
+!/release/
