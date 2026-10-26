@@ -1,0 +1,110 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Version>1.0.0.0</Version>
+    <ModuleName>TroopKDR</ModuleName>
+    <TargetFramework>net472</TargetFramework>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <Configurations>Stable_Debug;Stable_Release</Configurations>
+    <RootNamespace>TroopKDR</RootNamespace>
+    <AssemblyName>TroopKDR</AssemblyName>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('Release'))">
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>$(DefineConstants);TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <!--
+  Game folder used for references: BANNERLORD_GAME_DIR, or the paths in ..\TroopKDR.local.props (copy the .example),
+  or the default Steam folder. Nothing is ever copied into the game folder: the build only fills dist\TroopKDR in this repo.
+  -->
+  <Import Project="..\TroopKDR.local.props" Condition="Exists('..\TroopKDR.local.props')" />
+  <PropertyGroup>
+    <GameFolder Condition="'$(BANNERLORD_GAME_DIR)' != ''">$(BANNERLORD_GAME_DIR)</GameFolder>
+    <GameFolder Condition="'$(GameFolder)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</GameFolder>
+    <HarmonyFolder Condition="'$(HarmonyFolder)' == ''">$(GameFolder)\Modules\Bannerlord.Harmony\bin\Win64_Shipping_Client</HarmonyFolder>
+    <UIExtenderFolder Condition="'$(UIExtenderFolder)' == ''">$(GameFolder)\Modules\Bannerlord.UIExtenderEx\bin\Win64_Shipping_Client</UIExtenderFolder>
+    <DistFolder>$(MSBuildProjectDirectory)\..\dist\$(ModuleName)</DistFolder>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="$(GameFolder)\bin\Win64_Shipping_Client\TaleWorlds.*.dll" Exclude="$(GameFolder)\bin\Win64_Shipping_Client\TaleWorlds.Native.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="$(HarmonyFolder)\0Harmony.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <!-- Provided by the Bannerlord.UIExtenderEx module at run time; never shipped. -->
+    <Reference Include="$(UIExtenderFolder)\Bannerlord.UIExtenderEx.dll">
+      <HintPath>%(Identity)</HintPath>
+      <Private>False</Private>
+    </Reference>  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="_Module\**" />
+    <InternalsVisibleTo Include="PatchCheck" />
+  </ItemGroup>
+
+  <!-- Ready-to-install module folder inside the repo (dist\TroopKDR). Never copies into the game. -->
+  <Target Name="StageModule" AfterTargets="Build">
+    <ItemGroup>
+      <ModuleFiles Include="$(MSBuildProjectDirectory)\_Module\**\*" />
+      <ModuleBinaries Include="$(TargetDir)TroopKDR.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ModuleFiles)" DestinationFolder="$(DistFolder)\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(ModuleBinaries)" DestinationFolder="$(DistFolder)\bin\Win64_Shipping_Client" SkipUnchangedFiles="true" />
+    <Delete Files="$(DistFolder)\bin\Win64_Shipping_Client\TroopKDR.pdb" />
+  </Target>
+
+  <!-- Release builds also produce dist\TroopKDR-<version>.7z. Needs 7-Zip. -->
+  <PropertyGroup>
+    <SevenZip Condition="'$(SevenZip)' == ''">$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\7-Zip@Path)7z.exe</SevenZip>
+    <SevenZip Condition="!Exists('$(SevenZip)')">C:\Program Files\7-Zip\7z.exe</SevenZip>
+  </PropertyGroup>
+  <Target Name="PackageModule" AfterTargets="StageModule" Condition="$(Configuration.Contains('Release'))">
+    <PropertyGroup>
+      <PackageRoot>$(MSBuildProjectDirectory)\..\dist\package</PackageRoot>
+      <PackageVersion>$([System.Version]::Parse('$(Version)').ToString(3))</PackageVersion>
+      <PackageFile>$(MSBuildProjectDirectory)\..\dist\$(ModuleName)-$(PackageVersion).7z</PackageFile>
+    </PropertyGroup>
+    <ItemGroup>
+      <StagedFiles Include="$(DistFolder)\**\*" />
+    </ItemGroup>
+    <Warning Condition="!Exists('$(SevenZip)')" Text="7-Zip not found, so no .7z package was made. Install 7-Zip or set SevenZip in TroopKDR.local.props." />
+    <RemoveDir Directories="$(PackageRoot)" Condition="Exists('$(SevenZip)')" />
+    <Copy SourceFiles="@(StagedFiles)" DestinationFolder="$(PackageRoot)\$(ModuleName)\%(RecursiveDir)" Condition="Exists('$(SevenZip)')" />
+    <Delete Files="$(PackageFile)" Condition="Exists('$(SevenZip)')" />
+    <Exec Command="&quot;$(SevenZip)&quot; a -t7z -mx=9 &quot;$(PackageFile)&quot; &quot;$(ModuleName)&quot;" WorkingDirectory="$(PackageRoot)" StandardOutputImportance="low" Condition="Exists('$(SevenZip)')" />
+    <RemoveDir Directories="$(PackageRoot)" Condition="Exists('$(SevenZip)')" />
+  </Target>
+
+  <!--
+  Optional deploy to a mod manager folder, set as ModsDeployFolder in ..\TroopKDR.local.props. Only runs when asked for with
+  -p:DeployToMods=true (normal builds, including from Visual Studio, never deploy). Never the game's Modules folder.
+  -->
+  <Target Name="DeployToMods" AfterTargets="StageModule" Condition="'$(DeployToMods)' == 'true' AND '$(ModsDeployFolder)' != ''">
+    <Error Condition="$(ModsDeployFolder.Contains('steamapps'))" Text="Refusing to deploy into the game folder: $(ModsDeployFolder)" />
+    <ItemGroup>
+      <DistFiles Include="$(DistFolder)\**\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(DistFiles)" DestinationFolder="$(ModsDeployFolder)\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Delete Files="$(ModsDeployFolder)\bin\Win64_Shipping_Client\TroopKDR.pdb" />
+    <Message Importance="high" Text="Deployed to $(ModsDeployFolder)" />
+  </Target>
+
+</Project>

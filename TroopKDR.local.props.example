@@ -1,0 +1,19 @@
+<Project>
+  <!--
+  Copy to TroopKDR.local.props (not committed) and set your own paths.
+  GameFolder: game install used for references (or set BANNERLORD_GAME_DIR instead).
+  HarmonyFolder: where Bannerlord.Harmony keeps 0Harmony.dll, if not under GameFolder\Modules.
+  UIExtenderFolder: where Bannerlord.UIExtenderEx keeps its DLL, if not under GameFolder\Modules.
+  InstalledGameFolder: the real game install, used by tools\PatchCheck.
+  SevenZip: optional; path to 7z.exe if 7-Zip is not found automatically (Release builds package a .7z).
+  ModsDeployFolder: optional; builds run with -p:DeployToMods=true also copy the module there (for example your mod manager's folder).
+  -->
+  <PropertyGroup>
+    <GameFolder Condition="'$(BANNERLORD_GAME_DIR)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</GameFolder>
+    <HarmonyFolder>$(GameFolder)\Modules\Bannerlord.Harmony\bin\Win64_Shipping_Client</HarmonyFolder>
+    <UIExtenderFolder>$(GameFolder)\Modules\Bannerlord.UIExtenderEx\bin\Win64_Shipping_Client</UIExtenderFolder>
+    <InstalledGameFolder>$(GameFolder)</InstalledGameFolder>
+    <SevenZip></SevenZip>
+    <ModsDeployFolder></ModsDeployFolder>
+  </PropertyGroup>
+</Project>
