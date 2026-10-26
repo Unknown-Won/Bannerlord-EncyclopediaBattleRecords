@@ -9,7 +9,7 @@ Paste each part into the matching field when you add the mod on Nexus Mods (Uplo
 - **Version:** 1.0.0
 - **Language:** English
 - **Created by:** joemamawon
-- **Requirements (add on the Requirements tab):** Harmony, UIExtenderEx.
+- **Requirements:** see the Requirements part below.
 
 ## Summary (short description, max 350 characters)
 
@@ -101,39 +101,86 @@ For anything else, post a comment or bug report with your game version, your mod
 [/list]
 
 [size=4][b]Permissions[/b][/size]
-Encyclopedia Battle Records is open source under [url=https://creativecommons.org/licenses/by-nc-sa/4.0/]CC BY-NC-SA 4.0[/url]. Feel free to use, edit and build on it, including in your own mods and modpacks, as long as you credit joemamawon and share your changes under the same license. [b]Paid use is not allowed:[/b] no selling it or anything built from it, and no putting it behind a paywall, Patreon tier or early access. Link to this page instead of re-uploading it unchanged.
+Encyclopedia Battle Records is open source under [url=https://creativecommons.org/licenses/by-nc-sa/4.0/]CC BY-NC-SA 4.0[/url]. Feel free to use, edit and build on it, including in your own mods and modpacks, as long as you credit joemamawon and share your changes under the same license. [b]Paid use is not allowed:[/b] no selling it or anything built from it, and no putting it behind a paywall, Patreon tier or early access. If you share it, please link to this page rather than re-uploading it unchanged.
 
 [size=4][b]Source[/b][/size]
 [url=https://github.com/Unknown-Won/Bannerlord-EncyclopediaBattleRecords]Encyclopedia Battle Records on GitHub[/url]
 ```
 
-## Permissions and credits tab
-
-These match the CC BY-NC-SA 4.0 license in the repo: reuse with credit and under the same license, nothing paid.
-
-- **Upload permission:** You are not allowed to re-upload this file unchanged to other sites. Link to this page instead.
-- **Modification permission:** You are allowed to modify my files and release bug fixes or improve on the features, as long as you credit me.
-- **Conversion permission:** You can convert this file to work with other games as long as you credit me.
-- **Asset use permission:** You are allowed to use the assets and code in this file in your own mods and modpacks without asking, as long as you credit me.
-- **Asset use in mods/files that are being sold:** You are not allowed to use assets from this file in any mods/files that are being sold, for money, on Steam Workshop or other platforms.
-- **Asset use in mods/files that earn donation points:** You are not allowed to earn Donation Points for your mods if they use my assets.
-- **Author notes:** "Open source under CC BY-NC-SA 4.0: use, edit and build on Encyclopedia Battle Records with credit to joemamawon, and share your changes under the same license. No paid use: no selling, paywalls, Patreon tiers or early access. Source: https://github.com/Unknown-Won/Bannerlord-EncyclopediaBattleRecords"
-- **Credits:** add Kill Counter (mod 3793) by LesserScholar as a mod this one is based on.
-
 ## Images
 
-Hosted on postimages.org (gallery: https://postimg.cc/gallery/MMcWfb1/795a68e3) and already placed in the description:
-1. Troop page with the Battle Record section: https://i.postimg.cc/15R16tSJ/1.png (under "A Battle Record on every troop and hero page").
-2. Hero page with the Battle Record section: https://i.postimg.cc/yY6C9dKM/2.png (after the troop page image).
-3. Troop list sorted by a battle record: https://i.postimg.cc/NfGvTMYt/3.png (under "Sort troops and heroes by their record").
-4. Hero list sorted by a battle record: https://i.postimg.cc/Wbpcr3jP/4.png (after the troop list image).
+### Header (Media step, optional)
 
-Upload the same four to the mod's Images tab too, in this order, so the first becomes the thumbnail.
+None. A 1300×372 banner can be added later if you want one.
 
-## Building and uploading the release (by hand)
+### Gallery (Media step, Images, required)
 
-1. Build `src\EncyclopediaBattleRecords.csproj` as **Stable_Release | x64**. It writes `dist\EncyclopediaBattleRecords-1.0.0.7z` (and `dist\EncyclopediaBattleRecords`); it doesn't touch your MO2 folder.
-2. Check the .7z holds an `EncyclopediaBattleRecords` folder with `SubModule.xml` and `bin\Win64_Shipping_Client\EncyclopediaBattleRecords.dll`.
-3. Test the .7z once: install it through MO2 (or extract into a clean Modules folder), start the game and load a campaign.
-4. On Nexus Mods, go to **Upload > Add a mod**, fill in the fields above, and upload the .7z on the Files tab as the Main file, version 1.0.0.
-5. Add the images, set permissions, then publish.
+Upload the screenshot files directly. Suggested titles, in gallery order:
+1. Hero page: "Battle Record on a hero page"
+2. Troop page: "Battle Record on a troop page" (mark as thumbnail)
+3. Troop list sorted by K/D Ratio: "Troops sorted by K/D Ratio"
+4. Hero list sorted by Avg Kills: "Heroes sorted by Avg Kills"
+
+### Description images (already placed)
+
+Hosted on postimages.org (gallery: https://postimg.cc/gallery/MMcWfb1/795a68e3), full-size links:
+- Under "Sort troops and heroes by their record": https://i.postimg.cc/NfGvTMYt/3.png (troop list), then https://i.postimg.cc/Wbpcr3jP/4.png (hero list).
+- Under "A Battle Record on every troop and hero page": https://i.postimg.cc/15R16tSJ/1.png (troop page), then https://i.postimg.cc/yY6C9dKM/2.png (hero page).
+
+## Files
+
+One file, `EncyclopediaBattleRecords-1.0.0.7z` (Claude sends it):
+- **File category:** Main
+- **Display name:** Encyclopedia Battle Records
+- **File version:** 1.0.0, with "Update mod version to match this file's version" ticked
+- **Description:**
+  ```
+  Requires Harmony and UIExtenderEx. No DLC required. Safe to add or remove mid-campaign.
+  ```
+- **Downloads:** allow mod manager download, and set as primary file for download.
+- **Changelog:**
+  ```
+  Initial release.
+  Battle records (kills, deaths, wounds, routs, damage) for every troop type and hero, from all campaign battles.
+  New Sort By options on the encyclopedia's troop and hero lists, and a Battle Record section on every troop and hero page.
+  ```
+
+## Requirements
+
+- **Method:** Mod requirements (legacy), so each requirement can carry a load order note on the Description tab.
+- **Nexus Mods:**
+  - Harmony, note: `Load above Encyclopedia Battle Records.`
+  - UIExtenderEx, note: `Load above Encyclopedia Battle Records. Needed for the Battle Record sections on troop and hero pages.`
+- **External resources:** none.
+- **DLC:** none. War Sails stays unticked; it isn't required.
+
+## Permissions
+
+Matches the CC BY-NC-SA 4.0 license in the repo: reuse with credit and under the same license, nothing paid.
+- **Third-party content:** No (all content is mine). Kill Counter only inspired the ideas; none of its code is included.
+- **Credits:**
+  ```
+  Based on ideas from Kill Counter by LesserScholar (https://www.nexusmods.com/mountandblade2bannerlord/mods/3793, source: https://github.com/LesserScholar/KillCounters): per-troop kill counts, kills by target, and the encyclopedia sort and stats sections. No code from it is included.
+  ```
+- **Permission settings:** Pick your own
+  - Re-upload: Allowed (Credit required)
+  - Conversion (other games): Allowed (Credit required)
+  - Modification: Allowed (Credit required)
+  - Asset use: Allowed (Credit required)
+  - Earning donation points (using assets): Not allowed
+  - Monetisation (third-party): Not allowed
+- **Additional instructions:** tick "I would like to write additional instructions":
+  ```
+  Licensed under CC BY-NC-SA 4.0 (https://creativecommons.org/licenses/by-nc-sa/4.0/): credit joemamawon and share your changes under the same license. No paid use: no selling it or anything built from it, and no paywalls, Patreon tiers or early access. Source: https://github.com/Unknown-Won/Bannerlord-EncyclopediaBattleRecords
+  ```
+
+## Uploading
+
+Claude builds the release, checks it and sends you `EncyclopediaBattleRecords-1.0.0.7z` (from `dist`). It holds one `EncyclopediaBattleRecords` folder with `SubModule.xml` and `bin\Win64_Shipping_Client\EncyclopediaBattleRecords.dll`. To build it yourself, build `src\EncyclopediaBattleRecords.csproj` as **Stable_Release | x64**.
+
+On Nexus Mods, **Upload > Add a mod**, then the form's steps:
+1. **General:** the basic info, summary and description above.
+2. **Media:** the header (if any) and gallery images listed under Images.
+3. **Files:** upload `EncyclopediaBattleRecords-1.0.0.7z` and fill in its fields as listed under Files.
+4. **Requirements:** as listed under Requirements.
+5. **Permissions:** as listed under Permissions, then publish.
