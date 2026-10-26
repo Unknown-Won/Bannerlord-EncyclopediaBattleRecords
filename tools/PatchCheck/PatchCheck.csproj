@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <!-- Paths come from ..\..\TroopKDR.local.props (copy the .example) or the default Steam folder. -->
-  <Import Project="..\..\TroopKDR.local.props" Condition="Exists('..\..\TroopKDR.local.props')" />
+  <!-- Paths come from ..\..\EncyclopediaBattleRecords.local.props (copy the .example) or the default Steam folder. -->
+  <Import Project="..\..\EncyclopediaBattleRecords.local.props" Condition="Exists('..\..\EncyclopediaBattleRecords.local.props')" />
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net472</TargetFramework>

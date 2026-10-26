@@ -10,7 +10,7 @@ using TaleWorlds.CampaignSystem.Encyclopedia;
 using TaleWorlds.CampaignSystem.Encyclopedia.Pages;
 using TaleWorlds.Localization;
 
-namespace TroopKDR
+namespace EncyclopediaBattleRecords
 {
     /// <summary>
     /// Adds Fielded, Kills (totals), Avg Kills, Avg Deaths, Avg Defeats, Avg Routs (per 100 soldiers fielded), K/D Ratio, and Avg
@@ -46,7 +46,7 @@ namespace TroopKDR
             }
         }
 
-        private static EncyclopediaSortController Sort(string name, string format, Func<TroopRecords, CharacterObject, double> value) =>
+        private static EncyclopediaSortController Sort(string name, string format, Func<BattleRecords, CharacterObject, double> value) =>
             new EncyclopediaSortController(new TextObject(name), new RecordComparer(format, value));
 
         /// <summary>Per 100 soldiers fielded, so typical values read as 10.5 rather than 0.105.</summary>
@@ -61,10 +61,10 @@ namespace TroopKDR
         private sealed class RecordComparer : DefaultEncyclopediaUnitPage.EncyclopediaListUnitComparer
         {
             private readonly string _format;
-            private readonly Func<TroopRecords, CharacterObject, double> _value;
+            private readonly Func<BattleRecords, CharacterObject, double> _value;
             private readonly Func<CharacterObject, CharacterObject, int> _comparison;
 
-            public RecordComparer(string format, Func<TroopRecords, CharacterObject, double> value)
+            public RecordComparer(string format, Func<BattleRecords, CharacterObject, double> value)
             {
                 _format = format;
                 _value = value;
@@ -72,9 +72,9 @@ namespace TroopKDR
             }
 
             private static bool HasRecord(object item) =>
-                item is CharacterObject troop && TroopRecords.Current != null && TroopRecords.Current.Fielded(troop) > 0;
+                item is CharacterObject troop && BattleRecords.Current != null && BattleRecords.Current.Fielded(troop) > 0;
 
-            private double Value(CharacterObject troop) => TroopRecords.Current == null ? 0 : _value(TroopRecords.Current, troop);
+            private double Value(CharacterObject troop) => BattleRecords.Current == null ? 0 : _value(BattleRecords.Current, troop);
 
             public override int Compare(EncyclopediaListItem x, EncyclopediaListItem y)
             {

@@ -9,7 +9,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.MapEvents;
 using TaleWorlds.Core;
 
-namespace TroopKDR
+namespace EncyclopediaBattleRecords
 {
     /// <summary>
     /// Counts the battle record from the methods every campaign battle reports through, fought (via PartyGroupAgentOrigin and
@@ -61,7 +61,7 @@ namespace TroopKDR
 
         private static void AllocateTroopsPostfix(MapEventSide __instance, ref List<UniqueTroopDescriptor> troopsList)
         {
-            var records = TroopRecords.Current;
+            var records = BattleRecords.Current;
             if (records == null || troopsList == null || troopsList.Count == 0)
             {
                 return;
@@ -86,7 +86,7 @@ namespace TroopKDR
 
         private static void AllocateTroopPostfix(MapEventSide __instance, bool __result, ref UniqueTroopDescriptor troopDescriptor)
         {
-            var records = TroopRecords.Current;
+            var records = BattleRecords.Current;
             if (!__result || records == null)
             {
                 return;
@@ -108,7 +108,7 @@ namespace TroopKDR
         private static void ScoreHitPostfix(MapEventParty __instance, UniqueTroopDescriptor attackerTroopDesc, CharacterObject attackedTroop,
             int damage, bool isFatal, bool isTeamKill)
         {
-            var records = TroopRecords.Current;
+            var records = BattleRecords.Current;
             if (isTeamKill || records == null)
             {
                 return;
@@ -133,7 +133,7 @@ namespace TroopKDR
         {
             try
             {
-                TroopRecords.Current?.AddDeath(__instance.Troops[troopSeed].Troop);
+                BattleRecords.Current?.AddDeath(__instance.Troops[troopSeed].Troop);
             }
             catch (Exception e)
             {
@@ -145,7 +145,7 @@ namespace TroopKDR
         {
             try
             {
-                TroopRecords.Current?.AddWounded(__instance.Troops[troopSeed].Troop);
+                BattleRecords.Current?.AddWounded(__instance.Troops[troopSeed].Troop);
             }
             catch (Exception e)
             {
@@ -157,7 +157,7 @@ namespace TroopKDR
         {
             try
             {
-                TroopRecords.Current?.AddRouted(__instance.Troops[troopSeed].Troop);
+                BattleRecords.Current?.AddRouted(__instance.Troops[troopSeed].Troop);
             }
             catch (Exception e)
             {

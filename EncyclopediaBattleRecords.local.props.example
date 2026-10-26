@@ -1,6 +1,6 @@
 <Project>
   <!--
-  Copy to TroopKDR.local.props (not committed) and set your own paths.
+  Copy to EncyclopediaBattleRecords.local.props (not committed) and set your own paths.
   GameFolder: game install used for references (or set BANNERLORD_GAME_DIR instead).
   HarmonyFolder: where Bannerlord.Harmony keeps 0Harmony.dll, if not under GameFolder\Modules.
   UIExtenderFolder: where Bannerlord.UIExtenderEx keeps its DLL, if not under GameFolder\Modules.

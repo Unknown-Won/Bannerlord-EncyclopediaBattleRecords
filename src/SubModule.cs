@@ -6,27 +6,27 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 
-namespace TroopKDR
+namespace EncyclopediaBattleRecords
 {
     public class SubModule : MBSubModuleBase
     {
-        public const string HarmonyId = "troopkdr";
+        public const string HarmonyId = "encyclopediabattlerecords";
 
         private bool _patched;
-        private TroopRecords _records;
+        private BattleRecords _records;
 
         protected override void OnSubModuleLoad()
         {
             base.OnSubModuleLoad();
             _patched = ApplyPatches(new Harmony(HarmonyId));
             _patched &= TryPatch("encyclopedia panels", EnablePanels);
-            Log.Info(_patched ? "Troop KDR loaded." : "Troop KDR loaded, but some patches failed (see errors above).");
+            Log.Info(_patched ? "Encyclopedia Battle Records loaded." : "Encyclopedia Battle Records loaded, but some patches failed (see errors above).");
         }
 
         /// <summary>Kept apart from ApplyPatches so tools\PatchCheck doesn't need UIExtenderEx running.</summary>
         private static void EnablePanels()
         {
-            var extender = Bannerlord.UIExtenderEx.UIExtender.Create("TroopKDR");
+            var extender = Bannerlord.UIExtenderEx.UIExtender.Create("EncyclopediaBattleRecords");
             extender.Register(typeof(SubModule).Assembly);
             extender.Enable();
         }
@@ -65,7 +65,7 @@ namespace TroopKDR
             base.OnGameStart(game, gameStarterObject);
             if (game.GameType is Campaign && gameStarterObject is CampaignGameStarter starter)
             {
-                _records = new TroopRecords();
+                _records = new BattleRecords();
                 starter.AddBehavior(_records);
             }
         }
@@ -75,7 +75,7 @@ namespace TroopKDR
             base.OnGameEnd(game);
             if (_records != null)
             {
-                TroopRecords.Clear(_records);
+                BattleRecords.Clear(_records);
                 _records = null;
             }
         }

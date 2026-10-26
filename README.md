@@ -1,4 +1,4 @@
-# Troop KDR
+# Encyclopedia Battle Records
 
 Tracks a battle record for every troop type and hero in the campaign. It covers everything Lesser Scholar's Kill Counter showed, so that mod isn't needed alongside it.
 
@@ -39,6 +39,6 @@ Requires Harmony and UIExtenderEx. Built against Bannerlord v1.4.8.
 
 ## Building
 
-Copy `TroopKDR.local.props.example` to `TroopKDR.local.props` and set the paths, then build `src\TroopKDR.csproj` (`Stable_Debug` or `Stable_Release`, x64). The module is staged in `dist\TroopKDR`. Pass `-p:DeployToMods=true` to also copy it to `ModsDeployFolder`. Release builds also pack `dist\TroopKDR-<version>.7z`.
+Copy `EncyclopediaBattleRecords.local.props.example` to `EncyclopediaBattleRecords.local.props` and set the paths, then build `src\EncyclopediaBattleRecords.csproj` (`Stable_Debug` or `Stable_Release`, x64). The module is staged in `dist\EncyclopediaBattleRecords`. Pass `-p:DeployToMods=true` to also copy it to `ModsDeployFolder`. Release builds also pack `dist\EncyclopediaBattleRecords-<version>.7z`.
 
 `tools\PatchCheck` applies the patches offline and checks each hits its target, and checks the encyclopedia panels against the game's prefabs.

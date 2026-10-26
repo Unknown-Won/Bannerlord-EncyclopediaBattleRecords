@@ -11,14 +11,14 @@ using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia.Pages;
 using TaleWorlds.Core.ViewModelCollection.Generic;
 using TaleWorlds.Library;
 
-using static TroopKDR.StatNames;
+using static EncyclopediaBattleRecords.StatNames;
 
-namespace TroopKDR
+namespace EncyclopediaBattleRecords
 {
     /// <summary>
     /// The Battle Record section on the encyclopedia's troop and hero pages (UIExtenderEx): Totals, Kills by Target and Averages,
     /// with the same names as the Sort By lists. The prefab snippets are inline, so no GUI file can clash with another mod's of
-    /// the same name. Data-source names carry a TroopKDR prefix for the same reason.
+    /// the same name. Data-source names carry a EncyclopediaBattleRecords prefix for the same reason.
     /// </summary>
     internal sealed class RecordPanel
     {
@@ -55,7 +55,7 @@ namespace TroopKDR
             Totals.Clear();
             Targets.Clear();
             Averages.Clear();
-            var r = TroopRecords.Current;
+            var r = BattleRecords.Current;
             if (r == null || c == null)
             {
                 return;
@@ -75,10 +75,10 @@ namespace TroopKDR
             Add(Totals, DmgDealt, r.DamageDealt(c).ToString(CountFormat));
             Add(Totals, DmgTaken, r.DamageTaken(c).ToString(CountFormat));
 
-            Add(Targets, TroopKills, r.Kills(c, TroopRecords.VictimKind.Troop).ToString(CountFormat));
-            Add(Targets, HeroKills, r.Kills(c, TroopRecords.VictimKind.Hero).ToString(CountFormat));
-            Add(Targets, BanditKills, r.Kills(c, TroopRecords.VictimKind.Bandit).ToString(CountFormat));
-            Add(Targets, MercKills, r.Kills(c, TroopRecords.VictimKind.Mercenary).ToString(CountFormat));
+            Add(Targets, TroopKills, r.Kills(c, BattleRecords.VictimKind.Troop).ToString(CountFormat));
+            Add(Targets, HeroKills, r.Kills(c, BattleRecords.VictimKind.Hero).ToString(CountFormat));
+            Add(Targets, BanditKills, r.Kills(c, BattleRecords.VictimKind.Bandit).ToString(CountFormat));
+            Add(Targets, MercKills, r.Kills(c, BattleRecords.VictimKind.Mercenary).ToString(CountFormat));
 
             // Same values and formats as the Sort By entries; "-" until there's a battle to average over.
             string Avg(Func<double> value, string format) => fielded == 0 ? "-" : value().ToString(format);
@@ -102,12 +102,12 @@ namespace TroopKDR
         /// The section's markup, shared by both pages. Brushes and sizes are the hero page's own stats grid; columns differ per page.
         /// </summary>
         public static string Markup(int columns, int cellWidth) => $@"
-  <EncyclopediaDivider MarginTop=""20"" Parameter.Title=""@TroopKDRTitle"" Parameter.ItemList=""..\TroopKDRBody"" />
-  <ListPanel Id=""TroopKDRBody"" WidthSizePolicy=""StretchToParent"" HeightSizePolicy=""CoverChildren"" MarginLeft=""15"" StackLayout.LayoutMethod=""VerticalTopToBottom"">
+  <EncyclopediaDivider MarginTop=""20"" Parameter.Title=""@EncyclopediaBattleRecordsTitle"" Parameter.ItemList=""..\EncyclopediaBattleRecordsBody"" />
+  <ListPanel Id=""EncyclopediaBattleRecordsBody"" WidthSizePolicy=""StretchToParent"" HeightSizePolicy=""CoverChildren"" MarginLeft=""15"" StackLayout.LayoutMethod=""VerticalTopToBottom"">
     <Children>
-      {Group("TroopKDRTotalsTitle", "TroopKDRTotals", columns, cellWidth)}
-      {Group("TroopKDRTargetsTitle", "TroopKDRTargets", columns, cellWidth)}
-      {Group("TroopKDRAveragesTitle", "TroopKDRAverages", columns, cellWidth)}
+      {Group("EncyclopediaBattleRecordsTotalsTitle", "EncyclopediaBattleRecordsTotals", columns, cellWidth)}
+      {Group("EncyclopediaBattleRecordsTargetsTitle", "EncyclopediaBattleRecordsTargets", columns, cellWidth)}
+      {Group("EncyclopediaBattleRecordsAveragesTitle", "EncyclopediaBattleRecordsAverages", columns, cellWidth)}
     </Children>
   </ListPanel>";
 
@@ -151,13 +151,13 @@ namespace TroopKDR
             }
         }
 
-        [DataSourceProperty] public string TroopKDRTitle => _panel.Title;
-        [DataSourceProperty] public string TroopKDRTotalsTitle => _panel.TotalsTitle;
-        [DataSourceProperty] public string TroopKDRTargetsTitle => _panel.TargetsTitle;
-        [DataSourceProperty] public string TroopKDRAveragesTitle => _panel.AveragesTitle;
-        [DataSourceProperty] public MBBindingList<StringPairItemVM> TroopKDRTotals => _panel.Totals;
-        [DataSourceProperty] public MBBindingList<StringPairItemVM> TroopKDRTargets => _panel.Targets;
-        [DataSourceProperty] public MBBindingList<StringPairItemVM> TroopKDRAverages => _panel.Averages;
+        [DataSourceProperty] public string EncyclopediaBattleRecordsTitle => _panel.Title;
+        [DataSourceProperty] public string EncyclopediaBattleRecordsTotalsTitle => _panel.TotalsTitle;
+        [DataSourceProperty] public string EncyclopediaBattleRecordsTargetsTitle => _panel.TargetsTitle;
+        [DataSourceProperty] public string EncyclopediaBattleRecordsAveragesTitle => _panel.AveragesTitle;
+        [DataSourceProperty] public MBBindingList<StringPairItemVM> EncyclopediaBattleRecordsTotals => _panel.Totals;
+        [DataSourceProperty] public MBBindingList<StringPairItemVM> EncyclopediaBattleRecordsTargets => _panel.Targets;
+        [DataSourceProperty] public MBBindingList<StringPairItemVM> EncyclopediaBattleRecordsAverages => _panel.Averages;
     }
 
     /// <summary>No refresh method, for the same reason as UnitPageMixin.</summary>
@@ -181,13 +181,13 @@ namespace TroopKDR
             }
         }
 
-        [DataSourceProperty] public string TroopKDRTitle => _panel.Title;
-        [DataSourceProperty] public string TroopKDRTotalsTitle => _panel.TotalsTitle;
-        [DataSourceProperty] public string TroopKDRTargetsTitle => _panel.TargetsTitle;
-        [DataSourceProperty] public string TroopKDRAveragesTitle => _panel.AveragesTitle;
-        [DataSourceProperty] public MBBindingList<StringPairItemVM> TroopKDRTotals => _panel.Totals;
-        [DataSourceProperty] public MBBindingList<StringPairItemVM> TroopKDRTargets => _panel.Targets;
-        [DataSourceProperty] public MBBindingList<StringPairItemVM> TroopKDRAverages => _panel.Averages;
+        [DataSourceProperty] public string EncyclopediaBattleRecordsTitle => _panel.Title;
+        [DataSourceProperty] public string EncyclopediaBattleRecordsTotalsTitle => _panel.TotalsTitle;
+        [DataSourceProperty] public string EncyclopediaBattleRecordsTargetsTitle => _panel.TargetsTitle;
+        [DataSourceProperty] public string EncyclopediaBattleRecordsAveragesTitle => _panel.AveragesTitle;
+        [DataSourceProperty] public MBBindingList<StringPairItemVM> EncyclopediaBattleRecordsTotals => _panel.Totals;
+        [DataSourceProperty] public MBBindingList<StringPairItemVM> EncyclopediaBattleRecordsTargets => _panel.Targets;
+        [DataSourceProperty] public MBBindingList<StringPairItemVM> EncyclopediaBattleRecordsAverages => _panel.Averages;
     }
 
     /// <summary>

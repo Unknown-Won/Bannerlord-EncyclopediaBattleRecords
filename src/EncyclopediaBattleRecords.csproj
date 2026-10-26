@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <Version>1.0.0.0</Version>
-    <ModuleName>TroopKDR</ModuleName>
+    <ModuleName>EncyclopediaBattleRecords</ModuleName>
     <TargetFramework>net472</TargetFramework>
     <Platforms>x64</Platforms>
     <PlatformTarget>x64</PlatformTarget>
     <LangVersion>9.0</LangVersion>
     <Nullable>disable</Nullable>
     <Configurations>Stable_Debug;Stable_Release</Configurations>
-    <RootNamespace>TroopKDR</RootNamespace>
-    <AssemblyName>TroopKDR</AssemblyName>
+    <RootNamespace>EncyclopediaBattleRecords</RootNamespace>
+    <AssemblyName>EncyclopediaBattleRecords</AssemblyName>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
@@ -28,10 +28,10 @@
   </PropertyGroup>
 
   <!--
-  Game folder used for references: BANNERLORD_GAME_DIR, or the paths in ..\TroopKDR.local.props (copy the .example),
-  or the default Steam folder. Nothing is ever copied into the game folder: the build only fills dist\TroopKDR in this repo.
+  Game folder used for references: BANNERLORD_GAME_DIR, or the paths in ..\EncyclopediaBattleRecords.local.props (copy the .example),
+  or the default Steam folder. Nothing is ever copied into the game folder: the build only fills dist\EncyclopediaBattleRecords in this repo.
   -->
-  <Import Project="..\TroopKDR.local.props" Condition="Exists('..\TroopKDR.local.props')" />
+  <Import Project="..\EncyclopediaBattleRecords.local.props" Condition="Exists('..\EncyclopediaBattleRecords.local.props')" />
   <PropertyGroup>
     <GameFolder Condition="'$(BANNERLORD_GAME_DIR)' != ''">$(BANNERLORD_GAME_DIR)</GameFolder>
     <GameFolder Condition="'$(GameFolder)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord</GameFolder>
@@ -60,18 +60,18 @@
     <InternalsVisibleTo Include="PatchCheck" />
   </ItemGroup>
 
-  <!-- Ready-to-install module folder inside the repo (dist\TroopKDR). Never copies into the game. -->
+  <!-- Ready-to-install module folder inside the repo (dist\EncyclopediaBattleRecords). Never copies into the game. -->
   <Target Name="StageModule" AfterTargets="Build">
     <ItemGroup>
       <ModuleFiles Include="$(MSBuildProjectDirectory)\_Module\**\*" />
-      <ModuleBinaries Include="$(TargetDir)TroopKDR.dll" />
+      <ModuleBinaries Include="$(TargetDir)EncyclopediaBattleRecords.dll" />
     </ItemGroup>
     <Copy SourceFiles="@(ModuleFiles)" DestinationFolder="$(DistFolder)\%(RecursiveDir)" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(ModuleBinaries)" DestinationFolder="$(DistFolder)\bin\Win64_Shipping_Client" SkipUnchangedFiles="true" />
-    <Delete Files="$(DistFolder)\bin\Win64_Shipping_Client\TroopKDR.pdb" />
+    <Delete Files="$(DistFolder)\bin\Win64_Shipping_Client\EncyclopediaBattleRecords.pdb" />
   </Target>
 
-  <!-- Release builds also produce dist\TroopKDR-<version>.7z. Needs 7-Zip. -->
+  <!-- Release builds also produce dist\EncyclopediaBattleRecords-<version>.7z. Needs 7-Zip. -->
   <PropertyGroup>
     <SevenZip Condition="'$(SevenZip)' == ''">$(registry:HKEY_LOCAL_MACHINE\SOFTWARE\7-Zip@Path)7z.exe</SevenZip>
     <SevenZip Condition="!Exists('$(SevenZip)')">C:\Program Files\7-Zip\7z.exe</SevenZip>
@@ -85,7 +85,7 @@
     <ItemGroup>
       <StagedFiles Include="$(DistFolder)\**\*" />
     </ItemGroup>
-    <Warning Condition="!Exists('$(SevenZip)')" Text="7-Zip not found, so no .7z package was made. Install 7-Zip or set SevenZip in TroopKDR.local.props." />
+    <Warning Condition="!Exists('$(SevenZip)')" Text="7-Zip not found, so no .7z package was made. Install 7-Zip or set SevenZip in EncyclopediaBattleRecords.local.props." />
     <RemoveDir Directories="$(PackageRoot)" Condition="Exists('$(SevenZip)')" />
     <Copy SourceFiles="@(StagedFiles)" DestinationFolder="$(PackageRoot)\$(ModuleName)\%(RecursiveDir)" Condition="Exists('$(SevenZip)')" />
     <Delete Files="$(PackageFile)" Condition="Exists('$(SevenZip)')" />
@@ -94,7 +94,7 @@
   </Target>
 
   <!--
-  Optional deploy to a mod manager folder, set as ModsDeployFolder in ..\TroopKDR.local.props. Only runs when asked for with
+  Optional deploy to a mod manager folder, set as ModsDeployFolder in ..\EncyclopediaBattleRecords.local.props. Only runs when asked for with
   -p:DeployToMods=true (normal builds, including from Visual Studio, never deploy). Never the game's Modules folder.
   -->
   <Target Name="DeployToMods" AfterTargets="StageModule" Condition="'$(DeployToMods)' == 'true' AND '$(ModsDeployFolder)' != ''">
@@ -103,7 +103,7 @@
       <DistFiles Include="$(DistFolder)\**\*" />
     </ItemGroup>
     <Copy SourceFiles="@(DistFiles)" DestinationFolder="$(ModsDeployFolder)\%(RecursiveDir)" SkipUnchangedFiles="true" />
-    <Delete Files="$(ModsDeployFolder)\bin\Win64_Shipping_Client\TroopKDR.pdb" />
+    <Delete Files="$(ModsDeployFolder)\bin\Win64_Shipping_Client\EncyclopediaBattleRecords.pdb" />
     <Message Importance="high" Text="Deployed to $(ModsDeployFolder)" />
   </Target>
 

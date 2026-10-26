@@ -10,7 +10,7 @@ using TaleWorlds.CampaignSystem.Encyclopedia;
 using TaleWorlds.CampaignSystem.Encyclopedia.Pages;
 using TaleWorlds.Localization;
 
-namespace TroopKDR
+namespace EncyclopediaBattleRecords
 {
     /// <summary>
     /// Adds the troop page's sorts that apply to a hero to the Sort By list of the encyclopedia's hero page: Battles, Kills (total,
@@ -48,24 +48,24 @@ namespace TroopKDR
             }
         }
 
-        private static EncyclopediaSortController Sort(string name, string format, Func<TroopRecords, CharacterObject, double> value) =>
+        private static EncyclopediaSortController Sort(string name, string format, Func<BattleRecords, CharacterObject, double> value) =>
             new EncyclopediaSortController(new TextObject(name), new RecordComparer(format, value));
 
         private sealed class RecordComparer : DefaultEncyclopediaHeroPage.EncyclopediaListHeroComparer
         {
             private readonly string _format;
-            private readonly Func<TroopRecords, CharacterObject, double> _value;
+            private readonly Func<BattleRecords, CharacterObject, double> _value;
 
-            public RecordComparer(string format, Func<TroopRecords, CharacterObject, double> value)
+            public RecordComparer(string format, Func<BattleRecords, CharacterObject, double> value)
             {
                 _format = format;
                 _value = value;
             }
 
             private static bool HasRecord(object item) =>
-                item is Hero hero && TroopRecords.Current != null && TroopRecords.Current.Fielded(hero.CharacterObject) > 0;
+                item is Hero hero && BattleRecords.Current != null && BattleRecords.Current.Fielded(hero.CharacterObject) > 0;
 
-            private double Value(Hero hero) => TroopRecords.Current == null ? 0 : _value(TroopRecords.Current, hero.CharacterObject);
+            private double Value(Hero hero) => BattleRecords.Current == null ? 0 : _value(BattleRecords.Current, hero.CharacterObject);
 
             /// <summary>Not CompareHeroes, which sorts heroes the player doesn't know last.</summary>
             public override int Compare(EncyclopediaListItem x, EncyclopediaListItem y)

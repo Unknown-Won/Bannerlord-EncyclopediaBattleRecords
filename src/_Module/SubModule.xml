@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Module>
-  <Name value="Troop KDR"/>
-  <Id value="TroopKDR"/>
+  <Name value="Encyclopedia Battle Records"/>
+  <Id value="EncyclopediaBattleRecords"/>
   <Version value="v1.0.0"/>
   <SingleplayerModule value="true"/>
   <MultiplayerModule value="false"/>
@@ -27,9 +27,9 @@
   </DependedModuleMetadatas>
   <SubModules>
     <SubModule>
-      <Name value="TroopKDR"/>
-      <DLLName value="TroopKDR.dll"/>
-      <SubModuleClassType value="TroopKDR.SubModule"/>
+      <Name value="EncyclopediaBattleRecords"/>
+      <DLLName value="EncyclopediaBattleRecords.dll"/>
+      <SubModuleClassType value="EncyclopediaBattleRecords.SubModule"/>
       <Tags/>
     </SubModule>
   </SubModules>

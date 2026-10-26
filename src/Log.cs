@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace TroopKDR
+namespace EncyclopediaBattleRecords
 {
     /// <summary>
-    /// The mod's own diagnostics, in Configs\ModLogs\TroopKDR.log. Errors from the same place are logged a few times only, so a
+    /// The mod's own diagnostics, in Configs\ModLogs\EncyclopediaBattleRecords.log. Errors from the same place are logged a few times only, so a
     /// broken hook can't flood the file.
     /// </summary>
     internal static class Log
@@ -47,7 +47,7 @@ namespace TroopKDR
                         string docs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                         string folder = Path.Combine(docs, "Mount and Blade II Bannerlord", "Configs", "ModLogs");
                         Directory.CreateDirectory(folder);
-                        _path = Path.Combine(folder, "TroopKDR.log");
+                        _path = Path.Combine(folder, "EncyclopediaBattleRecords.log");
                         if (File.Exists(_path) && new FileInfo(_path).Length > MaxBytes)
                         {
                             File.Delete(_path);

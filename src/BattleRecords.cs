@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
 
-namespace TroopKDR
+namespace EncyclopediaBattleRecords
 {
     /// <summary>
     /// Battle record per character, keyed by CharacterObject.StringId: one entry per troop type, and one per hero (each hero has
@@ -11,7 +11,7 @@ namespace TroopKDR
     /// Saved with the campaign as Dictionary&lt;string, int&gt;, a type the save system already knows, so every save keeps its own
     /// record, the mod adds no saveable types and it can be removed from a save at any time.
     /// </summary>
-    internal sealed class TroopRecords : CampaignBehaviorBase
+    internal sealed class BattleRecords : CampaignBehaviorBase
     {
         /// <summary>What a kill was against, for the kill breakdown on the encyclopedia pages.</summary>
         public enum VictimKind
@@ -23,7 +23,7 @@ namespace TroopKDR
         }
 
         /// <summary>The running campaign's records, or null outside a campaign.</summary>
-        public static TroopRecords Current { get; private set; }
+        public static BattleRecords Current { get; private set; }
 
         private Dictionary<string, int> _fielded = new Dictionary<string, int>();
         private Dictionary<string, int> _kills = new Dictionary<string, int>();
@@ -36,12 +36,12 @@ namespace TroopKDR
         private Dictionary<string, int> _damageDealt = new Dictionary<string, int>();
         private Dictionary<string, int> _damageTaken = new Dictionary<string, int>();
 
-        public TroopRecords()
+        public BattleRecords()
         {
             Current = this;
         }
 
-        public static void Clear(TroopRecords records)
+        public static void Clear(BattleRecords records)
         {
             if (Current == records)
             {
@@ -55,16 +55,16 @@ namespace TroopKDR
 
         public override void SyncData(IDataStore dataStore)
         {
-            dataStore.SyncData("TroopKDR_fielded", ref _fielded);
-            dataStore.SyncData("TroopKDR_kills", ref _kills);
-            dataStore.SyncData("TroopKDR_killsOfHeroes", ref _killsOfHeroes);
-            dataStore.SyncData("TroopKDR_killsOfBandits", ref _killsOfBandits);
-            dataStore.SyncData("TroopKDR_killsOfMercenaries", ref _killsOfMercenaries);
-            dataStore.SyncData("TroopKDR_deaths", ref _deaths);
-            dataStore.SyncData("TroopKDR_wounded", ref _wounded);
-            dataStore.SyncData("TroopKDR_routed", ref _routed);
-            dataStore.SyncData("TroopKDR_damageDealt", ref _damageDealt);
-            dataStore.SyncData("TroopKDR_damageTaken", ref _damageTaken);
+            dataStore.SyncData("EncyclopediaBattleRecords_fielded", ref _fielded);
+            dataStore.SyncData("EncyclopediaBattleRecords_kills", ref _kills);
+            dataStore.SyncData("EncyclopediaBattleRecords_killsOfHeroes", ref _killsOfHeroes);
+            dataStore.SyncData("EncyclopediaBattleRecords_killsOfBandits", ref _killsOfBandits);
+            dataStore.SyncData("EncyclopediaBattleRecords_killsOfMercenaries", ref _killsOfMercenaries);
+            dataStore.SyncData("EncyclopediaBattleRecords_deaths", ref _deaths);
+            dataStore.SyncData("EncyclopediaBattleRecords_wounded", ref _wounded);
+            dataStore.SyncData("EncyclopediaBattleRecords_routed", ref _routed);
+            dataStore.SyncData("EncyclopediaBattleRecords_damageDealt", ref _damageDealt);
+            dataStore.SyncData("EncyclopediaBattleRecords_damageTaken", ref _damageTaken);
 
             // A save made before the mod (or a field) was added has no entries; keep empty dictionaries rather than null.
             _fielded ??= new Dictionary<string, int>();

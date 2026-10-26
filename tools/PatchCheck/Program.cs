@@ -1,5 +1,5 @@
-// Offline check: loads TroopKDR.dll next to the game assemblies, applies its patches and checks each one hit its target.
-// Usage: PatchCheck.exe [path to TroopKDR.dll]
+// Offline check: loads EncyclopediaBattleRecords.dll next to the game assemblies, applies its patches and checks each one hit its target.
+// Usage: PatchCheck.exe [path to EncyclopediaBattleRecords.dll]
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +31,7 @@ internal static class Program
 
     private static int Main(string[] args)
     {
-        string dll = args.Length > 0 ? args[0] : Path.GetFullPath(@"..\..\dist\TroopKDR\bin\Win64_Shipping_Client\TroopKDR.dll");
+        string dll = args.Length > 0 ? args[0] : Path.GetFullPath(@"..\..\dist\EncyclopediaBattleRecords\bin\Win64_Shipping_Client\EncyclopediaBattleRecords.dll");
         AppDomain.CurrentDomain.AssemblyResolve += (_, e) =>
         {
             string name = new AssemblyName(e.Name).Name + ".dll";
@@ -49,20 +49,20 @@ internal static class Program
 
         var mod = Assembly.LoadFrom(dll);
         const BindingFlags Static = BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
-        var harmony = new Harmony("troopkdr");
-        bool applied = (bool)mod.GetType("TroopKDR.SubModule", true).GetMethod("ApplyPatches", Static).Invoke(null, new object[] { harmony });
+        var harmony = new Harmony("encyclopediabattlerecords");
+        bool applied = (bool)mod.GetType("EncyclopediaBattleRecords.SubModule", true).GetMethod("ApplyPatches", Static).Invoke(null, new object[] { harmony });
         Check(applied, "ApplyPatches reports every patch applied");
 
         foreach (var (type, prop, owner) in new[]
         {
-            ("TroopKDR.BattlePatches", "AllocateTroopsTarget", "MapEventSide.AllocateTroops"),
-            ("TroopKDR.BattlePatches", "AllocateTroopTarget", "MapEventSide.AllocateTroop"),
-            ("TroopKDR.BattlePatches", "ScoreHitTarget", "MapEventParty.OnTroopScoreHit"),
-            ("TroopKDR.BattlePatches", "KilledTarget", "MapEventParty.OnTroopKilled"),
-            ("TroopKDR.BattlePatches", "WoundedTarget", "MapEventParty.OnTroopWounded"),
-            ("TroopKDR.BattlePatches", "RoutedTarget", "MapEventParty.OnTroopRouted"),
-            ("TroopKDR.EncyclopediaPatch", "Target", "DefaultEncyclopediaUnitPage.InitializeSortControllers"),
-            ("TroopKDR.HeroSortPatch", "Target", "DefaultEncyclopediaHeroPage.InitializeSortControllers"),
+            ("EncyclopediaBattleRecords.BattlePatches", "AllocateTroopsTarget", "MapEventSide.AllocateTroops"),
+            ("EncyclopediaBattleRecords.BattlePatches", "AllocateTroopTarget", "MapEventSide.AllocateTroop"),
+            ("EncyclopediaBattleRecords.BattlePatches", "ScoreHitTarget", "MapEventParty.OnTroopScoreHit"),
+            ("EncyclopediaBattleRecords.BattlePatches", "KilledTarget", "MapEventParty.OnTroopKilled"),
+            ("EncyclopediaBattleRecords.BattlePatches", "WoundedTarget", "MapEventParty.OnTroopWounded"),
+            ("EncyclopediaBattleRecords.BattlePatches", "RoutedTarget", "MapEventParty.OnTroopRouted"),
+            ("EncyclopediaBattleRecords.EncyclopediaPatch", "Target", "DefaultEncyclopediaUnitPage.InitializeSortControllers"),
+            ("EncyclopediaBattleRecords.HeroSortPatch", "Target", "DefaultEncyclopediaHeroPage.InitializeSortControllers"),
         })
         {
             var target = (MethodBase)mod.GetType(type, true).GetProperty(prop, Static).GetValue(null);
@@ -73,11 +73,11 @@ internal static class Program
             }
 
             var info = Harmony.GetPatchInfo(target);
-            Check(info != null && info.Postfixes.Count(p => p.owner == "troopkdr") == 1,
+            Check(info != null && info.Postfixes.Count(p => p.owner == "encyclopediabattlerecords") == 1,
                 $"{target.DeclaringType.Name}.{target.Name}({string.Join(", ", target.GetParameters().Select(p => p.Name))}) has the postfix");
         }
 
-        var page = mod.GetType("TroopKDR.EncyclopediaPatch", true);
+        var page = mod.GetType("EncyclopediaBattleRecords.EncyclopediaPatch", true);
         var ratio = page.GetMethod("Ratio", Static);
         var perSoldier = page.GetMethod("PerHundred", Static);
         double R(int k, int d) => (double)ratio.Invoke(null, new object[] { k, d });
@@ -88,21 +88,21 @@ internal static class Program
         Check(D(5000, 100) == 50 && D(5000, 0) == 0, "damage per soldier: 5000 over 100 fielded = 50, none fielded = 0");
         Check(P(30, 120) == 25 && P(5, 0) == 0, "per 100 soldiers: 30 over 120 fielded = 25, none fielded = 0");
 
-        var unitPage = ApplyPrefabs(mod, "EncyclopediaUnitPage", "TroopKDR.UnitPageMixin", "TroopKDR.UnitPageStackPrefab", "TroopKDR.UnitPagePrefab");
+        var unitPage = ApplyPrefabs(mod, "EncyclopediaUnitPage", "EncyclopediaBattleRecords.UnitPageMixin", "EncyclopediaBattleRecords.UnitPageStackPrefab", "EncyclopediaBattleRecords.UnitPagePrefab");
         var stack = unitPage?.SelectNodes("descendant::ListPanel[@Id='InnerPanel']/Children/*");
         Check(stack != null && stack.Count == 2
-            && stack[0].SelectSingleNode("descendant::EncyclopediaDivider[@Parameter.Title='@TroopKDRTitle']") != null
+            && stack[0].SelectSingleNode("descendant::EncyclopediaDivider[@Parameter.Title='@EncyclopediaBattleRecordsTitle']") != null
             && stack[1].Attributes?["DataSource"]?.Value == "{Tree}",
             "EncyclopediaUnitPage: the scroll content is a vertical stack with Battle Record first and the upgrade tree below it");
-        var heroPage = ApplyPrefabs(mod, "EncyclopediaHeroPage", "TroopKDR.HeroPageMixin", "TroopKDR.HeroPagePrefab");
+        var heroPage = ApplyPrefabs(mod, "EncyclopediaHeroPage", "EncyclopediaBattleRecords.HeroPageMixin", "EncyclopediaBattleRecords.HeroPagePrefab");
         var afterInfo = heroPage?.SelectSingleNode("descendant::Widget[@Id='InfoContainer']")?.NextSibling;
-        Check(afterInfo?.Attributes?["Parameter.Title"]?.Value == "@TroopKDRTitle", "EncyclopediaHeroPage: Battle Record follows the hero's info stats");
+        Check(afterInfo?.Attributes?["Parameter.Title"]?.Value == "@EncyclopediaBattleRecordsTitle", "EncyclopediaHeroPage: Battle Record follows the hero's info stats");
         CheckField("EncyclopediaUnitPageVM", "_character", "CharacterObject");
         CheckField("EncyclopediaHeroPageVM", "_hero", "Hero");
 
         // Every method patched at module load: ours via Harmony, and the page VM methods UIExtenderEx patches for the mixins.
-        var patched = Harmony.GetAllPatchedMethods().Where(m => Harmony.GetPatchInfo(m).Owners.Contains("troopkdr")).ToList();
-        foreach (var mixinName in new[] { "TroopKDR.UnitPageMixin", "TroopKDR.HeroPageMixin" })
+        var patched = Harmony.GetAllPatchedMethods().Where(m => Harmony.GetPatchInfo(m).Owners.Contains("encyclopediabattlerecords")).ToList();
+        foreach (var mixinName in new[] { "EncyclopediaBattleRecords.UnitPageMixin", "EncyclopediaBattleRecords.HeroPageMixin" })
         {
             var mixin = mod.GetType(mixinName, true);
             var vm = mixin.BaseType.GetGenericArguments()[0];
@@ -170,7 +170,7 @@ internal static class Program
 
             var bound = snippet.SelectNodes("//@*").Cast<XmlAttribute>()
                 .Select(a => a.Value)
-                .Where(v => v.StartsWith("@TroopKDR") || v.StartsWith("{TroopKDR"))
+                .Where(v => v.StartsWith("@EncyclopediaBattleRecords") || v.StartsWith("{EncyclopediaBattleRecords"))
                 .Select(v => v.Trim('@', '{', '}'))
                 .Distinct()
                 .ToList();

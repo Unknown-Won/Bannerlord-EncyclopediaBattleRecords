@@ -92,4 +92,4 @@ ipch/
 /dist/
 
 # Machine-specific build paths
-TroopKDR.local.props
+EncyclopediaBattleRecords.local.props
