@@ -2,7 +2,7 @@
 <Module>
   <Name value="Encyclopedia Battle Records"/>
   <Id value="EncyclopediaBattleRecords"/>
-  <Version value="v1.0.0"/>
+  <Version value="v1.0.1"/>
   <SingleplayerModule value="true"/>
   <MultiplayerModule value="false"/>
   <Official value="false"/>
@@ -19,11 +19,11 @@
   <DependedModuleMetadatas>
     <DependedModuleMetadata id="Bannerlord.Harmony" order="LoadBeforeThis" version="v2.4.2"/>
     <DependedModuleMetadata id="Bannerlord.UIExtenderEx" order="LoadBeforeThis"/>
-    <DependedModuleMetadata id="Native" order="LoadBeforeThis" version="1.0.0.*"/>
-    <DependedModuleMetadata id="SandBoxCore" order="LoadBeforeThis" version="1.0.0.*"/>
-    <DependedModuleMetadata id="Sandbox" order="LoadBeforeThis" version="1.0.0.*"/>
-    <DependedModuleMetadata id="StoryMode" order="LoadBeforeThis" version="1.0.0.*" optional="true"/>
-    <DependedModuleMetadata id="NavalDLC" order="LoadBeforeThis" version="1.0.0.*" optional="true"/>
+    <DependedModuleMetadata id="Native" order="LoadBeforeThis"/>
+    <DependedModuleMetadata id="SandBoxCore" order="LoadBeforeThis"/>
+    <DependedModuleMetadata id="Sandbox" order="LoadBeforeThis"/>
+    <DependedModuleMetadata id="StoryMode" order="LoadBeforeThis" optional="true"/>
+    <DependedModuleMetadata id="NavalDLC" order="LoadBeforeThis" optional="true"/>
   </DependedModuleMetadatas>
   <SubModules>
     <SubModule>

@@ -6,7 +6,7 @@ Paste each part into the matching field when you add the mod on Nexus Mods (Uplo
 
 - **Mod name:** Encyclopedia Battle Records
 - **Category:** User Interface
-- **Version:** 1.0.0
+- **Version:** 1.0.1
 - **Language:** English
 - **Created by:** joemamawon
 - **Requirements:** see the Requirements part below.
@@ -129,21 +129,28 @@ Hosted on postimages.org (gallery: https://postimg.cc/gallery/MMcWfb1/795a68e3),
 
 ## Files
 
-One file, `EncyclopediaBattleRecords-1.0.0.7z` (Claude sends it):
+Latest release, `EncyclopediaBattleRecords-1.0.1.7z` (Claude sends it):
 - **File category:** Main
 - **Display name:** Encyclopedia Battle Records
-- **File version:** 1.0.0, with "Update mod version to match this file's version" ticked
+- **File version:** 1.0.1, with "Update mod version to match this file's version" ticked
 - **Description:**
   ```
-  Requires Harmony and UIExtenderEx. No DLC required. Safe to add or remove mid-campaign.
+  For Bannerlord v1.5.7. Requires Harmony and UIExtenderEx.
+
+  Updated for Bannerlord v1.5.7.
+  Removed an outdated game version requirement that could make launchers show a warning.
   ```
 - **Downloads:** allow mod manager download, and set as primary file for download.
 - **Changelog:**
   ```
-  Initial release.
-  Battle records (kills, deaths, wounds, routs, damage) for every troop type and hero, from all campaign battles.
-  New Sort By options on the encyclopedia's troop and hero lists, and a Battle Record section on every troop and hero page.
+  Updated for Bannerlord v1.5.7
+  Fixed: the mod listed the game's own modules as version 1.0.0, which could make launchers show a version warning
   ```
+
+The 1.0.0 file stays up for players still on Bannerlord v1.4.8. Edit it to set its category to Old, or keep it as Main with "(v1.4.8)" added to its display name.
+
+Earlier releases:
+- **1.0.0** (Bannerlord v1.4.8): initial release.
 
 ## Requirements
 
@@ -176,11 +183,11 @@ Matches the CC BY-NC-SA 4.0 license in the repo: reuse with credit and under the
 
 ## Uploading
 
-Claude builds the release, checks it and sends you `EncyclopediaBattleRecords-1.0.0.7z` (from `dist`). It holds one `EncyclopediaBattleRecords` folder with `SubModule.xml` and `bin\Win64_Shipping_Client\EncyclopediaBattleRecords.dll`. To build it yourself, build `src\EncyclopediaBattleRecords.csproj` as **Stable_Release | x64**.
+Claude builds the release, checks it and sends you the latest `EncyclopediaBattleRecords-<version>.7z` (from `dist`). It holds one `EncyclopediaBattleRecords` folder with `SubModule.xml` and `bin\Win64_Shipping_Client\EncyclopediaBattleRecords.dll`. To build it yourself, build `src\EncyclopediaBattleRecords.csproj` as **Stable_Release | x64**.
 
 On Nexus Mods, **Upload > Add a mod**, then the form's steps:
 1. **General:** the basic info, summary and description above.
 2. **Media:** the header (if any) and gallery images listed under Images.
-3. **Files:** upload `EncyclopediaBattleRecords-1.0.0.7z` and fill in its fields as listed under Files.
+3. **Files:** upload the latest `.7z` and fill in its fields as listed under Files.
 4. **Requirements:** as listed under Requirements.
 5. **Permissions:** as listed under Permissions, then publish.

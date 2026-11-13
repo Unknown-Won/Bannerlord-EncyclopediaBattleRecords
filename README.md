@@ -39,7 +39,7 @@ Every name is the same in the Sort By lists and the Battle Record sections. A tr
 
 Based on ideas from LesserScholar's [Kill Counter](https://www.nexusmods.com/mountandblade2bannerlord/mods/3793) ([source](https://github.com/LesserScholar/KillCounters)): per-troop kill counts, kills by target, and the encyclopedia sort and stats sections. This mod expands on them.
 
-Requires Harmony and UIExtenderEx. Built against Bannerlord v1.4.8.
+Requires Harmony and UIExtenderEx. Built against Bannerlord v1.5.7.
 
 ## Building
 
