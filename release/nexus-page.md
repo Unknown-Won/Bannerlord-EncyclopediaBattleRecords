@@ -138,13 +138,11 @@ Latest release, `EncyclopediaBattleRecords-1.0.1.7z` (Claude sends it):
   For Bannerlord v1.5.7. Requires Harmony and UIExtenderEx.
 
   Updated for Bannerlord v1.5.7.
-  Removed an outdated game version requirement that could make launchers show a warning.
   ```
 - **Downloads:** allow mod manager download, and set as primary file for download.
 - **Changelog:**
   ```
   Updated for Bannerlord v1.5.7
-  Fixed: the mod listed the game's own modules as version 1.0.0, which could make launchers show a version warning
   ```
 
 The 1.0.0 file stays up for players still on Bannerlord v1.4.8. Edit it to set its category to Old, or keep it as Main with "(v1.4.8)" added to its display name.
