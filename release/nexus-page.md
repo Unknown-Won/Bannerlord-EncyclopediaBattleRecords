@@ -137,7 +137,7 @@ Latest release, `EncyclopediaBattleRecords-1.0.1.7z` (Claude sends it):
   ```
   For Bannerlord v1.3.14 to v1.5.7. Requires Harmony and UIExtenderEx.
 
-  Updated for Bannerlord v1.5.7. Also works back to v1.3.14.
+  Updated for Bannerlord v1.5.7.
   ```
 - **Downloads:** allow mod manager download, and set as primary file for download.
 - **Changelog:**
