@@ -23,7 +23,7 @@ An expanded take on Kill Counter: tracks kills, deaths, wounds, routs and damage
 [center][size=5][b]Encyclopedia Battle Records[/b][/size]
 Find out which troops really pull their weight[/center]
 
-Requires [url=https://www.nexusmods.com/mountandblade2bannerlord/mods/2006]Harmony[/url] and [url=https://www.nexusmods.com/mountandblade2bannerlord/mods/2102]UIExtenderEx[/url] | War Sails not required | Safe to add or remove mid-campaign | Changes no gameplay: it only records battles and shows the results
+Works with Bannerlord v1.3.14 to v1.5.7 | Requires [url=https://www.nexusmods.com/mountandblade2bannerlord/mods/2006]Harmony[/url] and [url=https://www.nexusmods.com/mountandblade2bannerlord/mods/2102]UIExtenderEx[/url] | War Sails not required | Safe to add or remove mid-campaign | Changes no gameplay: it only records battles and shows the results
 
 Ever wondered whether your Legionaries actually earn their wages, or which lord in your kingdom has the most kills? Encyclopedia Battle Records keeps a battle record for every troop type and every hero in your campaign, and puts it in the encyclopedia. It expands on [url=https://www.nexusmods.com/mountandblade2bannerlord/mods/3793]Kill Counter[/url] by LesserScholar with deaths, wounds, routs, damage and averages, for heroes as well as troops.
 
@@ -135,17 +135,18 @@ Latest release, `EncyclopediaBattleRecords-1.0.1.7z` (Claude sends it):
 - **File version:** 1.0.1, with "Update mod version to match this file's version" ticked
 - **Description:**
   ```
-  For Bannerlord v1.5.7. Requires Harmony and UIExtenderEx.
+  For Bannerlord v1.3.14 to v1.5.7. Requires Harmony and UIExtenderEx.
 
-  Updated for Bannerlord v1.5.7.
+  Updated for Bannerlord v1.5.7. Also works back to v1.3.14.
   ```
 - **Downloads:** allow mod manager download, and set as primary file for download.
 - **Changelog:**
   ```
   Updated for Bannerlord v1.5.7
+  Works on every game version from v1.3.14 to v1.5.7
   ```
 
-The 1.0.0 file stays up for players still on Bannerlord v1.4.8. Edit it to set its category to Old, or keep it as Main with "(v1.4.8)" added to its display name.
+1.0.1 works on v1.3.14 to v1.5.7, so set the 1.0.0 file's category to Old.
 
 Earlier releases:
 - **1.0.0** (Bannerlord v1.4.8): initial release.
